@@ -9,10 +9,12 @@ body {
   justify-content: center;
   align-items: center;
   background: radial-gradient(
-    circle,
-    rgb(216, 137, 171) 0%,
-    rgb(19, 81, 152) 100%
+    rgb(147, 7, 67) 0%,
+    rgb(19, 94, 152) 100%,
+    rgb(213, 216, 137) 100%
   );
+  animation: gradient-animation 5s ease infinite;
+  background-size: 180% 180%;
 }
 .container {
   display: flex;
@@ -48,7 +50,7 @@ body {
   font-size: 20px;
   font-weight: bold;
   font-family: cursive;
-  transition: all .5s;
+  transition: all 0.5s;
   z-index: 10;
 }
 
@@ -71,7 +73,7 @@ body {
   color: blanchedalmond;
   background: linear-gradient(300deg, #f15f5f, #ef579d, #efe457);
   background-size: 180% 180%;
-  animation: gradient-animation 18s ease infinite;
+  animation: gradient-animation 8s ease infinite;
   text-align: center;
   font-size: 50px;
   font-family: cursive;
@@ -99,24 +101,24 @@ body {
   .btn-container {
     flex-direction: column;
   }
-  .container{
+  .container {
     font-size: 25px;
   }
 }
 
-#yes-window p:nth-child(1){
+#yes-window p:nth-child(1) {
   color: red;
 }
 
-#yes-window p:nth-child(2){
+#yes-window p:nth-child(2) {
   color: rgb(40, 195, 99);
 }
 
-#yes-window p:nth-child(3){
+#yes-window p:nth-child(3) {
   color: rgb(65, 93, 203);
 }
 
-#yes-window p:nth-child(4){
+#yes-window p:nth-child(4) {
   color: rgb(255, 255, 255);
 }
 .love-txt {

@@ -2,6 +2,7 @@ const magikBtn = document.getElementById("magikBtn");
 const yesBtn = document.getElementById("yesBtn");
 const yesWindow = document.getElementById("yes-window");
 const container = document.querySelector(".container");
+const defaultPosition = { left: magikBtn.style.left, top: magikBtn.style.top };
 magikBtn.addEventListener("click", () => {
   // Get the window dimensions
   const windowWidth = window.innerWidth;
@@ -10,7 +11,7 @@ magikBtn.addEventListener("click", () => {
   // Get the button dimensions
   const btnWidth = magikBtn.offsetWidth;
   const btnHeight = magikBtn.offsetHeight;
-
+  
   // Generate random positions within the window boundaries
   const randomX = Math.floor(Math.random() * (windowWidth - btnWidth));
   const randomY = Math.floor(Math.random() * (windowHeight - btnHeight));
@@ -31,7 +32,14 @@ yesWindow.addEventListener("click", () => {
   yesWindow.style.opacity = 0;
   container.style.opacity = 1;
   yesWindow.style.zIndex = -1;
-});
+  if(window.matchMedia("(max-width: 700px)").matches){
+    magikBtn.style.left = defaultPosition.left;
+    magikBtn.style.top = defaultPosition.top+'550px';
+  }
+  else{
+    magikBtn.style.left = defaultPosition.left;
+    magikBtn.style.top = defaultPosition.top+'450px';
+  }});
 
 const logo = yesWindow,
   images = logo.querySelectorAll("p");
