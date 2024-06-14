@@ -11,7 +11,7 @@ magikBtn.addEventListener("click", () => {
   // Get the button dimensions
   const btnWidth = magikBtn.offsetWidth;
   const btnHeight = magikBtn.offsetHeight;
-  
+
   // Generate random positions within the window boundaries
   const randomX = Math.floor(Math.random() * (windowWidth - btnWidth));
   const randomY = Math.floor(Math.random() * (windowHeight - btnHeight));
@@ -26,21 +26,60 @@ yesBtn.addEventListener("click", () => {
   yesWindow.style.opacity = 1;
   container.style.opacity = 0;
   yesWindow.style.zIndex = 1000;
+  confetti({
+    particleCount: 200,
+    spread: 160,
+  });
+
+  // Roses effect
+  for (let i = 0; i < 30; i++) {
+    createFallingRose();
+  }
 });
+const createFallingRose = () => {
+  const rose = document.createElement("img");
+  rose.src = "./rose.png"; 
+  rose.className = "rose";
+  document.body.appendChild(rose);
+
+  const startX = Math.random() * window.innerWidth;
+  const startY = Math.random() * window.innerHeight;
+  const duration = Math.random() * 8000 + 2000;
+
+  rose.style.left = `${startX}px`;
+  rose.style.top = `${startY}px`;
+  rose.style.animation = `fall ${duration}ms linear`;
+
+  rose.addEventListener("animationend", () => {
+    rose.remove();
+  });
+};
+
+// Add CSS animation for falling effect
+const style = document.createElement("style");
+style.innerHTML = `
+                @keyframes fall {
+                    0% { transform: translateY(-100px); opacity: 1; }
+                    100% { transform: translateY(${
+                      window.innerHeight + 100
+                    }px); opacity: 0; }
+                }
+            `;
+document.head.appendChild(style);
 
 yesWindow.addEventListener("click", () => {
   yesWindow.style.opacity = 0;
   container.style.opacity = 1;
   yesWindow.style.zIndex = -1;
-  if(window.matchMedia("(max-width: 700px)").matches){
+  if (window.matchMedia("(max-width: 700px)").matches) {
     magikBtn.style.left = defaultPosition.left;
-    magikBtn.style.top = defaultPosition.top+'550px';
+    magikBtn.style.top = defaultPosition.top + "550px";
+  } else {
+    magikBtn.style.left = defaultPosition.left;
+    magikBtn.style.top = defaultPosition.top + "450px";
   }
-  else{
-    magikBtn.style.left = defaultPosition.left;
-    magikBtn.style.top = defaultPosition.top+'450px';
-  }});
-
+});
+// code from hyperplexed
 const logo = yesWindow,
   images = logo.querySelectorAll("p");
 
