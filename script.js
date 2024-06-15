@@ -44,10 +44,12 @@ const createFallingRose = () => {
 
   const startX = Math.random() * window.innerWidth;
   const startY = Math.random() * window.innerHeight;
+  const skewed = Math.random() * (10-(-10))+(-10);
   const duration = Math.random() * 8000 + 2000;
 
   rose.style.left = `${startX}px`;
   rose.style.top = `${startY}px`;
+  rose.style.transform = `skew(${skewed}deg)`;
   rose.style.animation = `fall ${duration}ms linear`;
 
   rose.addEventListener("animationend", () => {
