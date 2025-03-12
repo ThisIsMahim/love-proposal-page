@@ -3,24 +3,23 @@ const yesBtn = document.getElementById("yesBtn");
 const yesWindow = document.getElementById("yes-window");
 const container = document.querySelector(".container");
 const defaultPosition = { left: magikBtn.style.left, top: magikBtn.style.top };
-magikBtn.addEventListener("click", () => {
-  // Get the window dimensions
+
+// Function to move the magikBtn to a random position
+const moveMagikBtn = () => {
   const windowWidth = window.innerWidth;
   const windowHeight = window.innerHeight;
-
-  // Get the button dimensions
   const btnWidth = magikBtn.offsetWidth;
   const btnHeight = magikBtn.offsetHeight;
 
-  // Generate random positions within the window boundaries
   const randomX = Math.floor(Math.random() * (windowWidth - btnWidth));
   const randomY = Math.floor(Math.random() * (windowHeight - btnHeight));
 
-  // Set the button's new position
   magikBtn.style.position = "absolute";
   magikBtn.style.left = `${randomX}px`;
   magikBtn.style.top = `${randomY}px`;
-});
+};
+
+magikBtn.addEventListener("click", moveMagikBtn);
 
 yesBtn.addEventListener("click", () => {
   yesWindow.style.opacity = 1;
@@ -31,11 +30,11 @@ yesBtn.addEventListener("click", () => {
     spread: 160,
   });
 
-  // Roses effect
   for (let i = 0; i < 30; i++) {
     createFallingRose();
   }
 });
+
 const createFallingRose = () => {
   const rose = document.createElement("img");
   rose.src = "./rose.png"; 
@@ -57,16 +56,13 @@ const createFallingRose = () => {
   });
 };
 
-// Add CSS animation for falling effect
 const style = document.createElement("style");
 style.innerHTML = `
-                @keyframes fall {
-                    0% { transform: translateY(-100px); opacity: 1; }
-                    100% { transform: translateY(${
-                      window.innerHeight + 100
-                    }px); opacity: 0; }
-                }
-            `;
+  @keyframes fall {
+    0% { transform: translateY(-100px); opacity: 1; }
+    100% { transform: translateY(${window.innerHeight + 100}px); opacity: 0; }
+  }
+`;
 document.head.appendChild(style);
 
 yesWindow.addEventListener("click", () => {
@@ -81,7 +77,22 @@ yesWindow.addEventListener("click", () => {
     magikBtn.style.top = defaultPosition.top + "450px";
   }
 });
-// code from hyperplexed
+
+// Add mousemove event listener to displace magikBtn when mouse is close
+document.addEventListener("mousemove", (e) => {
+  const rect = magikBtn.getBoundingClientRect();
+  const btnCenterX = rect.left + rect.width / 2;
+  const btnCenterY = rect.top + rect.height / 2;
+
+  const distanceThreshold = 100; // Distance in pixels
+  const distance = Math.sqrt((e.clientX - btnCenterX) ** 2 + (e.clientY - btnCenterY) ** 2);
+
+  if (distance < distanceThreshold) {
+    moveMagikBtn();
+  }
+});
+
+// Rest of the code remains unchanged
 const logo = yesWindow,
   images = logo.querySelectorAll("p");
 
@@ -93,9 +104,7 @@ const shift = (image, index, rangeX, rangeY) => {
 
   const translationIntensity = active ? 24 : 4,
     maxTranslation = translationIntensity * (index + 1),
-    currentTranslation = `${maxTranslation * rangeX}% ${
-      maxTranslation * rangeY
-    }%`;
+    currentTranslation = `${maxTranslation * rangeX}% ${maxTranslation * rangeY}%`;
 
   const scale = active ? 1 + index * 0.4 : 1;
 
